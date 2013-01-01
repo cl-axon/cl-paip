@@ -9,7 +9,7 @@ repository.
 Installation Instructions
 -------------------------
 
-#.  `git clone` the source code from the github repository.
+#.  ``git clone`` the source code from the github repository.
 
 #.  You must have a lisp compiler/interpreter.
 
@@ -30,8 +30,8 @@ Use
 ---
 
 To use the code, edit any of the files or add new files. You will always
-have to do (load "auxfns.lisp") first, and you will typically have to do
-(requires "file"), for various instances of file that you want to use.
+have to do ``(load "auxfns.lisp")`` first, and you will typically have to do
+``(requires "file")``, for various instances of *file* that you want to use.
 
 The function "requires" is used for a primitive form of control over what files
 require other files to be loaded first. If "requires" does not work properly on
@@ -39,10 +39,10 @@ your system you may have to alter its definition, in the file "auxfns.lisp".
 For more complicated use of these files, you should follow the guidelines for
 organizing files explained in Chapter 24.
 
-The function do-examples, which takes as an argument either :all or a chapter
-number or a list of chapter numbers, can be used to see examples of the use of
-various functions. For example, (do-examples 1) shows the examples from chapter
-1.
+The function ``do-examples``, which takes as an argument either ``:all`` or a
+chapter number or a list of chapter numbers, can be used to see examples of the
+use of various functions. For example, ``(do-examples 1)`` shows the examples
+from chapter 1.
 
 The Files
 ---------
