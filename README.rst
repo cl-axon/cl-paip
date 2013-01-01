@@ -19,6 +19,7 @@ Installation Instructions
 .. code:: lisp
 
     (load "auxfns.lisp")
+    (in-package :paip.auxfns)
     (requires "examples")
     (do-examples :all)
 
