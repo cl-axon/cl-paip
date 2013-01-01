@@ -50,9 +50,9 @@ The Files
 The index below gives the chapter in the book, file name, and short description
 for each file.
 
-======= ========        ===========
+======= =============== =======================================================
 Chapter Filename        Description
-======= ========        ===========
+======= =============== =======================================================
 -       README.rst      This file: explanation and index
 -       examples.lisp   A list of example inputs taken from the book
 -       tutor.lisp      An interpreter for running the examples
@@ -104,7 +104,7 @@ Chapter Filename        Description
 23      compile3.lisp   Compiler with peephole optimizer
 23      compopt.lisp    Peephole optimizers for compile3.lisp
 24      loop.lisp       Load this first if your Lisp doesn't support ANSI LOOP
-======= ========        ===========
+======= =============== =======================================================
 
 .. Links:
 .. _this license: LICENSE.rst
