@@ -104,4 +104,4 @@ CH  Filename    Description
 23  compopt.lisp    Peephole optimizers for compile3.lisp
 
 .. Links:
-.. _this license: cl-paip/blob/master/LICENSE.rst
+.. _this license: LICENSE.rst
