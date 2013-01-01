@@ -1,19 +1,20 @@
 Paradigms of AI Programming Source Code
 =======================================
 
-This page is the index for the Lisp source code files for the book Paradigms of
-Artificial Intelligence Programming. The code is offered as open source
-freeware under this license. You can browse all the files in this directory.
+This page is the index for the Lisp source code files for the book *Paradigms
+of Artificial Intelligence Programming*. The code is offered as open source
+freeware under `this license`_. You can browse all the files in the github
+repository.
 
 Installation Instructions
 -------------------------
 
-#.  Download the file paip.zip and unzip it.
+#.  `git clone` the source code from the github repository.
 
 #.  You must have a lisp compiler/interpreter.
 
-#.  To test all the code, start lisp and do the following at the interactive
-    prompt:
+#.  To test all the code, start lisp in the project directory and do the
+    following at the interactive prompt:
 
 .. code:: lisp
 
@@ -101,3 +102,6 @@ CH  Filename    Description
 23  compile2.lisp   Compiler with tail recursion and primitives
 23  compile3.lisp   Compiler with peephole optimizer
 23  compopt.lisp    Peephole optimizers for compile3.lisp
+
+.. Links:
+.. _this license: cl-paip/blob/master/LICENSE.rst
