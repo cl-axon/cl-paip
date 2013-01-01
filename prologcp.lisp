@@ -42,7 +42,7 @@
 (defun call/1 (goal cont)
   "Try to prove goal by calling it."
   (deref goal)
-  (apply (make-predicate (first goal) 
+  (apply (make-predicate (first goal)
                          (length (args goal)))
          (append (args goal) (list cont))))
 
@@ -75,9 +75,9 @@
   ;;     (bagof ?x (p ?x) ?l) ==> ?l = (1 2 3)
   (let ((answers nil))
     (call/1 goal #'(lambda ()
-		     ;; Bug fix by mdf0%shemesh@gte.com (Mark Feblowitz)
-		     ;; on 25 Jan 1996; was deref-COPY
-                     (push (deref-EXP exp) answers))) 
+             ;; Bug fix by mdf0%shemesh@gte.com (Mark Feblowitz)
+             ;; on 25 Jan 1996; was deref-COPY
+                     (push (deref-EXP exp) answers)))
     (if (and (not (null answers))
              (unify! result (nreverse answers)))
         (funcall cont))))
@@ -126,7 +126,7 @@
            (unify! ?result (apply (first exp) (rest exp))))
       (funcall cont)))
 
-(defun repeat/0 (cont) 
+(defun repeat/0 (cont)
   (loop (funcall cont)))
 
 (<- (if ?test ?then) (if ?then ?else (fail)))

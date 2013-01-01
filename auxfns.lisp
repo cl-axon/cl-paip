@@ -18,7 +18,7 @@
   #+Lispworks
   (setq *PACKAGES-FOR-WARN-ON-REDEFINITION* nil)
 
-  #+LCL 
+  #+LCL
    (compiler-options :warnings nil)
   )
 
@@ -36,45 +36,45 @@
   (mapc #'load-paip-file files))
 
 (defvar *paip-files*
-  `("auxfns" "tutor" "examples" 
-    "intro" "simple" "overview" "gps1" "gps" "eliza1" "eliza" "patmatch" 
-    "eliza-pm" "search" "gps-srch" "student" "macsyma" "macsymar" "unify" 
-    "prolog1" "prolog" "prologc1" "prologc2" "prologc" "prologcp" 
-    "clos" "krep1" "krep2" "krep" "cmacsyma" "mycin" "mycin-r" "waltz" 
-    "othello" "othello2" "syntax1" "syntax2" "syntax3" "unifgram" 
-    "grammar" "lexicon" "interp1" "interp2" "interp3" 
+  `("auxfns" "tutor" "examples"
+    "intro" "simple" "overview" "gps1" "gps" "eliza1" "eliza" "patmatch"
+    "eliza-pm" "search" "gps-srch" "student" "macsyma" "macsymar" "unify"
+    "prolog1" "prolog" "prologc1" "prologc2" "prologc" "prologcp"
+    "clos" "krep1" "krep2" "krep" "cmacsyma" "mycin" "mycin-r" "waltz"
+    "othello" "othello2" "syntax1" "syntax2" "syntax3" "unifgram"
+    "grammar" "lexicon" "interp1" "interp2" "interp3"
     "compile1" "compile2" "compile3" "compopt"))
 
 (defparameter *paip-directory*
   (make-pathname :name nil :type nil
-		 :defaults (or (and (boundp '*load-truename*) *load-truename*)
-			       (truename ""))) ;;??? Maybe Change this
+         :defaults (or (and (boundp '*load-truename*) *load-truename*)
+                   (truename ""))) ;;??? Maybe Change this
   "The location of the source files for this book.  If things don't work,
   change it to reflect the location of the files on your computer.")
 
-(defparameter *paip-source* 
+(defparameter *paip-source*
   (make-pathname :name nil :type "lisp" ;;???  Maybe Change this
-		 :defaults *paip-directory*)) 
+         :defaults *paip-directory*))
 
 (defparameter *paip-binary*
   (make-pathname
    :name nil
    :type (first (list #+LCL (first *load-binary-pathname-types*)
-		      #+Lispworks system::*binary-file-type*
-		      #+MCL "fasl"
-		      #+Allegro excl:*fasl-default-type*
-		      #+(or AKCL KCL) "o"
-		      #+CMU "sparcf"
-		      #+CLISP "fas"
-		      "bin"))  ;;???  Maybe Change this
+              #+Lispworks system::*binary-file-type*
+              #+MCL "fasl"
+              #+Allegro excl:*fasl-default-type*
+              #+(or AKCL KCL) "o"
+              #+CMU "sparcf"
+              #+CLISP "fas"
+              "bin"))  ;;???  Maybe Change this
    :directory (append (pathname-directory *paip-source*) '("bin"))
    :defaults *paip-directory*))
 
 (defun paip-pathname (name &optional (type :lisp))
-  (make-pathname :name name 
-		 :defaults (ecase type
-			     ((:lisp :source) *paip-source*)
-			     ((:binary :bin) *paip-binary*))))
+  (make-pathname :name name
+         :defaults (ecase type
+                 ((:lisp :source) *paip-source*)
+                 ((:binary :bin) *paip-binary*))))
 
 (defun compile-all-paip-files ()
   (mapc #'compile-paip-file *paip-files*))
@@ -87,12 +87,12 @@
 (defun load-paip-file (file)
   "Load the binary file if it exists and is newer, else load the source."
   (let* ((src (paip-pathname file :lisp))
-	 (src-date (file-write-date src))
-	 (bin (paip-pathname file :binary))
-	 (bin-date (file-write-date bin)))
+     (src-date (file-write-date src))
+     (bin (paip-pathname file :binary))
+     (bin-date (file-write-date bin)))
     (load (if (and (probe-file bin) src-date bin-date (>= bin-date src-date))
-	      bin
-	    src))))
+          bin
+        src))))
 
 ;;;; Macros (formerly in auxmacs.lisp: that file no longer needed)
 
@@ -105,26 +105,26 @@
     (let ((temps nil))
       (dotimes (i (length variables)) (push (gensym) temps))
       `(if (every #'side-effect-free? (list .,variables))
-	(progn .,body)
-	(list 'let
-	 ,`(list ,@(mapcar #'(lambda (tmp var)
-			       `(list ',tmp ,var))
-			   temps variables))
-	 (let ,(mapcar #'(lambda (var tmp) `(,var ',tmp))
-		       variables temps)
-	   .,body)))))
+    (progn .,body)
+    (list 'let
+     ,`(list ,@(mapcar #'(lambda (tmp var)
+                   `(list ',tmp ,var))
+               temps variables))
+     (let ,(mapcar #'(lambda (var tmp) `(,var ',tmp))
+               variables temps)
+       .,body)))))
 
   (defun side-effect-free? (exp)
     "Is exp a constant, variable, or function,
   or of the form (THE type x) where x is side-effect-free?"
     (or (atom exp) (constantp exp)
-	(starts-with exp 'function)
-	(and (starts-with exp 'the)
-	     (side-effect-free? (third exp)))))
+    (starts-with exp 'function)
+    (and (starts-with exp 'the)
+         (side-effect-free? (third exp)))))
 
   (defmacro funcall-if (fn arg)
     (once-only (fn)
-	       `(if ,fn (funcall ,fn ,arg) ,arg)))
+           `(if ,fn (funcall ,fn ,arg) ,arg)))
 
   (defmacro read-time-case (first-case &rest other-cases)
     "Do the first case, where normally cases are
@@ -139,9 +139,9 @@
   (defun find-anywhere (item tree)
     "Does item occur anywhere in tree?"
     (if (atom tree)
-	(if (eql item tree) tree)
-	(or (find-anywhere item (first tree))
-	    (find-anywhere item (rest tree)))))
+    (if (eql item tree) tree)
+    (or (find-anywhere item (first tree))
+        (find-anywhere item (rest tree)))))
 
   (defun starts-with (list x)
     "Is x a list whose first element is x?"
@@ -157,7 +157,7 @@
   "Find all those elements of sequence that match item,
   according to the keywords.  Doesn't alter sequence."
   (if test-not
-      (apply #'remove item sequence 
+      (apply #'remove item sequence
              :test-not (complement test-not) keyword-args)
       (apply #'remove item sequence
              :test (complement test) keyword-args)))
@@ -196,15 +196,15 @@
   new-length, if that is longer than the current length."
   (if (and (arrayp array)
            (array-has-fill-pointer-p array))
-      (setf (fill-pointer array) 
+      (setf (fill-pointer array)
             (max (fill-pointer array) new-length))))
 
 ;;; ==============================
 
 ;;; NOTE: In ANSI Common Lisp, the effects of adding a definition (or most
 ;;; anything else) to a symbol in the common-lisp package is undefined.
-;;; Therefore, it would be best to rename the function SYMBOL to something 
-;;; else.  This has not been done (for compatibility with the book).  
+;;; Therefore, it would be best to rename the function SYMBOL to something
+;;; else.  This has not been done (for compatibility with the book).
 
 (defun symbol (&rest args)
   "Concatenate symbols or strings to form an interned symbol"
@@ -225,7 +225,7 @@
   Like mapcon, but uses append instead of nconc."
   (apply #'append (mapcar fn list)))
 
-(defun mklist (x) 
+(defun mklist (x)
   "If x is a list return it, otherwise return the list of x"
   (if (listp x) x (list x)))
 
@@ -233,7 +233,7 @@
   "Get rid of imbedded lists (to one level only)."
   (mappend #'mklist exp))
 
-(defun random-elt (seq) 
+(defun random-elt (seq)
   "Pick a random element out of a sequence."
   (elt seq (random (length seq))))
 
@@ -393,7 +393,7 @@
          "Place a no-longer-needed element back in the pool."
          (vector-push-extend ,name ,resource))
        ,(if (> initial-copies 0)
-            `(mapc #',deallocate (loop repeat ,initial-copies 
+            `(mapc #',deallocate (loop repeat ,initial-copies
                                        collect (,allocate))))
        ',name)))
 
@@ -444,7 +444,7 @@
 
 ;;;; Other:
 
-(defun sort* (seq pred &key key) 
+(defun sort* (seq pred &key key)
   "Sort without altering the sequence"
   (sort (copy-seq seq) pred :key key))
 
@@ -456,7 +456,7 @@
 
 ;;; ==============================
 
-(defun length=1 (x) 
+(defun length=1 (x)
   "Is x a list of length 1?"
   (and (consp x) (null (cdr x))))
 
@@ -549,7 +549,7 @@
        (do-result (i)
          (if (and (vectorp result-sequence)
                   (array-has-fill-pointer-p result-sequence))
-             (setf (fill-pointer result-sequence) 
+             (setf (fill-pointer result-sequence)
                    (max i (fill-pointer result-sequence))))))
       (declare (inline do-one-call))
       ;; Decide if the result is a list or vector,

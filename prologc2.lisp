@@ -2,7 +2,7 @@
 ;;;; Code from Paradigms of AI Programming
 ;;;; Copyright (c) 1991 Peter Norvig
 
-;;;; File prologc2.lisp: Version 2 of the prolog compiler, 
+;;;; File prologc2.lisp: Version 2 of the prolog compiler,
 ;;;; fixing the first set of bugs.
 
 (requires "prolog")
@@ -171,10 +171,10 @@
     (compile
      (eval
       `(defun ,predicate (,@parameters cont)
-	.,(maybe-add-undo-bindings                  ;***
-	   (mapcar #'(lambda (clause)
-		       (compile-clause parameters clause 'cont))
-	    clauses)))))))
+    .,(maybe-add-undo-bindings                  ;***
+       (mapcar #'(lambda (clause)
+               (compile-clause parameters clause 'cont))
+        clauses)))))))
 
 (defun compile-clause (parms clause cont)
   "Transform away the head, and compile the resulting body."

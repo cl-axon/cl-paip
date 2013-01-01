@@ -63,7 +63,7 @@
                                  found-so-far))))
 
 (defun find-anywhere-if (predicate tree)
-  "does predicate apply to any atom in the tree?"  
+  "does predicate apply to any atom in the tree?"
   (if (atom tree)
       (funcall predicate tree)
       (or (find-anywhere-if predicate (first tree))
@@ -119,7 +119,7 @@
     (#\; t)
     (#\. nil)
     (#\newline (continue-p))
-    (otherwise 
+    (otherwise
       (format t " Type ; to see more or . to stop")
       (continue-p))))
 
@@ -133,7 +133,7 @@
 (defun replace-?-vars (exp)
     "Replace any ? within exp with a var of the form ?123."
     (cond ((eq exp '?) (gensym "?"))
-	  ((atom exp) exp)
-	  (t (reuse-cons (replace-?-vars (first exp))
-			 (replace-?-vars (rest exp))
-			 exp))))
+      ((atom exp) exp)
+      (t (reuse-cons (replace-?-vars (first exp))
+             (replace-?-vars (rest exp))
+             exp))))

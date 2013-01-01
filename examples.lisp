@@ -50,7 +50,7 @@
   ((first-name p) => JOHN)
   ((first-name '(Wilma Flintstone)) => WILMA)
   ((setf names '((John Q Public) (Malcolm X)
-              (Admiral Grace Murray Hopper) (Spot) 
+              (Admiral Grace Murray Hopper) (Spot)
               (Aristotle) (A A Milne) (Z Z Top)
               (Sir Larry Olivier) (Miss Scarlet))) @ 14)
   ((first-name (first names)) => JOHN)
@@ -69,7 +69,7 @@
   ((defun first-name (name)
      "Select the first name from a name represented as a list."
      (if (member (first name) *titles*)
-	 (first-name (rest name))
+     (first-name (rest name))
        (first name))) @ 16)
   ((mapcar #'first-name names))
   ((first-name '(Madam Major General Paula Jones)) => PAULA)
@@ -133,7 +133,7 @@
   "functions in Lisp."
   (:section "3.2 Special Forms")
   "Start with functions and special forms for repetition:"
-  "First, functions like MAPCAR can apply to any number of lists:" 
+  "First, functions like MAPCAR can apply to any number of lists:"
   ((mapcar #'- '(1 2 3)) => (-1 -2 -3) @ 61)
   ((mapcar #'+ '(1 2) '(10 20) '(100 200)) => (111 222))
   "Second, many of the functions accept keywords:"
@@ -187,7 +187,7 @@
   ((format t "~&~a plus ~s is ~f" "two" "two" 4))
   ((let ((numbers '( 1 2 3 4 5)))
      (format t "~&~{~r~^ plus ~} is ~@r"
-	     numbers (apply #'+ numbers))))
+         numbers (apply #'+ numbers))))
   (:section "3.13 Debugging tools")
   ((documentation 'first 'function) @ 87)
   ((documentation 'pi 'variable))
@@ -220,7 +220,7 @@
   "This style of programming is covered in more detail in chapter 13."
   )
 
-(defexamples 4 "GPS: The General Problem Solver" 
+(defexamples 4 "GPS: The General Problem Solver"
   "The General problem Solver, developed in 1957 by Alan Newell and Herbert"
   "Simon, embodied a grandiose vision: a single computer program that could"
   "solve ANY problem.  GPS caused quite a stir ..."
@@ -250,7 +250,7 @@
   "The bug is that when (EVERY #'ACHIEVE GOALS) returns true, it means all the"
   "goals were achieved in turn, but they might not still be all true."
 
-  (:section "4.8 The Leaping before You Look Problem") 
+  (:section "4.8 The Leaping before You Look Problem")
   "What happens if we move the HAVE-MONEY goal to the end?"
   ((gps '(son-at-home car-needs-battery have-money have-phone-book)
        '(have-money son-at-school)
@@ -267,7 +267,7 @@
   ((push (make-op :action 'ask-phone-number
                :preconds '(in-communication-with-shop)
                :add-list '(know-phone-number))
-	 *school-ops*) @ 122)
+     *school-ops*) @ 122)
 
   (:section "4.11 GPS Version 2: A More General problem Solver")
   "At this point we are ready to put together a new version of GPS with"
@@ -277,7 +277,7 @@
   "operator is applied, we will instead have GPS return the resulting state."
   ((requires "gps"))
   "We use the list of operators that includes the 'asking the shop their"
-  "phone number' operator." 
+  "phone number' operator."
   ((push (make-op :action 'ask-phone-number
                :preconds '(in-communication-with-shop)
                :add-list '(know-phone-number))
@@ -286,31 +286,31 @@
  "First we make sure the new version works on some of the examples that"
  "version 1 worked on:"
   ((gps '(son-at-home car-needs-battery have-money have-phone-book)
-	'(son-at-school)) =>
-	((START)
-	 (EXECUTING LOOK-UP-NUMBER) 
-	 (EXECUTING TELEPHONE-SHOP)
-	 (EXECUTING TELL-SHOP-PROBLEM)
-	 (EXECUTING GIVE-SHOP-MONEY)
-	 (EXECUTING SHOP-INSTALLS-BATTERY)
-	 (EXECUTING DRIVE-SON-TO-SCHOOL)) @ 131)
+    '(son-at-school)) =>
+    ((START)
+     (EXECUTING LOOK-UP-NUMBER)
+     (EXECUTING TELEPHONE-SHOP)
+     (EXECUTING TELL-SHOP-PROBLEM)
+     (EXECUTING GIVE-SHOP-MONEY)
+     (EXECUTING SHOP-INSTALLS-BATTERY)
+     (EXECUTING DRIVE-SON-TO-SCHOOL)) @ 131)
   "We can see what is going on here by turning on debugging temporarily:"
   ((debug :gps))
   ((gps '(son-at-home car-needs-battery have-money have-phone-book)
-	'(son-at-school)) =>
-	((START)
-	 (EXECUTING LOOK-UP-NUMBER) 
-	 (EXECUTING TELEPHONE-SHOP)
-	 (EXECUTING TELL-SHOP-PROBLEM)
-	 (EXECUTING GIVE-SHOP-MONEY)
-	 (EXECUTING SHOP-INSTALLS-BATTERY)
-	 (EXECUTING DRIVE-SON-TO-SCHOOL)) @ 131)
+    '(son-at-school)) =>
+    ((START)
+     (EXECUTING LOOK-UP-NUMBER)
+     (EXECUTING TELEPHONE-SHOP)
+     (EXECUTING TELL-SHOP-PROBLEM)
+     (EXECUTING GIVE-SHOP-MONEY)
+     (EXECUTING SHOP-INSTALLS-BATTERY)
+     (EXECUTING DRIVE-SON-TO-SCHOOL)) @ 131)
   ((undebug))
   "Here is another old example:"
   ((gps '(son-at-home car-works)
        '(son-at-school)) =>
        ((START)
-	(EXECUTING DRIVE-SON-TO-SCHOOL)) @ 132)
+    (EXECUTING DRIVE-SON-TO-SCHOOL)) @ 132)
   "Now we see that version 2 can handle the three cases version 1 got wrong."
   "In each case the program avoids an infinite loop, and also avoids leaping"
   "before it looks."
@@ -330,13 +330,13 @@
   "We pose the problem of becoming not-hungry, given an initial state."
   "GPS can find a solution to this problem:"
   ((GPS '(at-door on-floor has-ball hungry chair-at-door)
-	'(not-hungry)) =>
-	((START)
-	 (EXECUTING PUSH-CHAIR-FROM-DOOR-TO-MIDDLE-ROOM)
-	 (EXECUTING CLIMB-ON-CHAIR)
-	 (EXECUTING DROP-BALL)
-	 (EXECUTING GRASP-BANANAS)
-	 (EXECUTING EAT-BANANAS)) @ 133)
+    '(not-hungry)) =>
+    ((START)
+     (EXECUTING PUSH-CHAIR-FROM-DOOR-TO-MIDDLE-ROOM)
+     (EXECUTING CLIMB-ON-CHAIR)
+     (EXECUTING DROP-BALL)
+     (EXECUTING GRASP-BANANAS)
+     (EXECUTING EAT-BANANAS)) @ 133)
   "Notice we did not need to make any changes at all to the GPS program."
   "We just used a different set of operators."
 
@@ -347,7 +347,7 @@
   ((gps '((at 1)) '((at 25))) @ 135)
 
   "We can define FIND-PATH to use the results of a GPS search:"
-  ((find-path 1 25) @ 136 => 
+  ((find-path 1 25) @ 136 =>
    (1 2 3 4 9 8 7 12 11 16 17 22 23 24 19 20 25))
   ((find-path 1 1) => (1))
   ((equal (find-path 1 25) (reverse (find-path 25 1))) => T)
@@ -361,15 +361,15 @@
          (space on table))
        '((a on b) (b on table))) =>
        ((START)
-	(EXECUTING (MOVE A FROM TABLE TO B))))
+    (EXECUTING (MOVE A FROM TABLE TO B))))
   "Here is a slightly more complex problem: inverting a stack of two blocks."
   "This time we show the debugging output:"
   ((debug :gps) @ 138)
   ((gps '((a on b) (b on table) (space on a) (space on table))
        '((b on a))) =>
        ((START)
-	(EXECUTING (MOVE A FROM B TO TABLE))
-	(EXECUTING (MOVE B FROM TABLE TO A))))
+    (EXECUTING (MOVE A FROM B TO TABLE))
+    (EXECUTING (MOVE B FROM TABLE TO A))))
   ((undebug))
   "Now we move on to the three block world."
   ((use (make-block-ops '(a b c))) => 18)
@@ -377,28 +377,28 @@
   ((gps '((a on b) (b on c) (c on table) (space on a) (space on table))
        '((b on a) (c on b))) =>
        ((START)
-	(EXECUTING (MOVE A FROM B TO TABLE))
-	(EXECUTING (MOVE B FROM C TO A))
-	(EXECUTING (MOVE C FROM TABLE TO B))))
+    (EXECUTING (MOVE A FROM B TO TABLE))
+    (EXECUTING (MOVE B FROM C TO A))
+    (EXECUTING (MOVE C FROM TABLE TO B))))
   ((gps '((c on a) (a on table) (b on table)
          (space on c) (space on b) (space on table))
        '((c on table) (a on b))) =>
        ((START)
-	(EXECUTING (MOVE C FROM A TO TABLE))
-	(EXECUTING (MOVE A FROM TABLE TO B))) @ 141)
+    (EXECUTING (MOVE C FROM A TO TABLE))
+    (EXECUTING (MOVE A FROM TABLE TO B))) @ 141)
   ((gps '((a on b) (b on c) (c on table) (space on a) (space on table))
-	'((b on a) (c on b))) @ 141 =>
-	((START)
-	 (EXECUTING (MOVE A FROM B TO TABLE))
-	 (EXECUTING (MOVE B FROM C TO A))
-	 (EXECUTING (MOVE C FROM TABLE TO B))))
+    '((b on a) (c on b))) @ 141 =>
+    ((START)
+     (EXECUTING (MOVE A FROM B TO TABLE))
+     (EXECUTING (MOVE B FROM C TO A))
+     (EXECUTING (MOVE C FROM TABLE TO B))))
 
   ((gps '((a on b) (b on c) (c on table) (space on a) (space on table))
-	'((c on b) (b on a))) =>
-	((START)
-	 (EXECUTING (MOVE A FROM B TO TABLE))
-	 (EXECUTING (MOVE B FROM C TO A))
-	 (EXECUTING (MOVE C FROM TABLE TO B))))
+    '((c on b) (b on a))) =>
+    ((START)
+     (EXECUTING (MOVE A FROM B TO TABLE))
+     (EXECUTING (MOVE B FROM C TO A))
+     (EXECUTING (MOVE C FROM TABLE TO B))))
   "The Sussman Anomaly"
   ((setf start '((c on a) (a on table) (b on table) (space on c)
                 (space on b) (space on table))) @ 142)
@@ -431,8 +431,8 @@
   "Now a version of pat-match that works with such pairs:"
   ((pat-match '(I need a ?x) '(I need a vacation))  @ 158)
   "Showing how to plug it in:"
-  ((sublis (pat-match '(I need a ?x) '(I need a vacation)) 
-	   '(what would it mean to you if you got a ?X ?))
+  ((sublis (pat-match '(I need a ?x) '(I need a vacation))
+       '(what would it mean to you if you got a ?X ?))
    => (what would it mean to you if you got a VACATION ?) @ 159)
   ((pat-match '(I need a ?x) '(I really need a vacation)) => nil)
   ((pat-match '(this is easy) '(this is easy)) => ((t . t)))
@@ -445,7 +445,7 @@
   "We show how to have a variable that will match more than one element."
   "We call these segment variables, and denote them (?* name)."
   ((pat-match '((?* ?p) need (?* ?x))
-	      '(Mr Hulot and I need a vacation)) @ 160)
+          '(Mr Hulot and I need a vacation)) @ 160)
   (:section "5.4 The Eliza Program: A Rule-Based Translator")
   ((requires "eliza"))
   "We can't show you an interactive ELIZA session, because the replies are"
@@ -464,16 +464,16 @@
   ((pat-match '(x = (?is ?n numberp)) '(x = 34)) => ((?n . 34)) @ 179)
   ((pat-match '(x = (?is ?n numberp)) '(x = x)) => NIL)
   ((pat-match '(?x (?or < = >) ?y) '(3 < 4)) => ((?Y . 4) (?X . 3)))
-  ((pat-match '(x = (?and (?is ?n numberp) (?is ?n oddp))) '(x = 3)) 
+  ((pat-match '(x = (?and (?is ?n numberp) (?is ?n oddp))) '(x = 3))
    => ((?N . 3)))
   ((pat-match '(?x /= (?not ?x)) '(3 /= 4)) => ((?X . 3)) @ 180)
   ((pat-match '(?x > ?y (?if (> ?x ?y))) '(4 > 3)) => ((?Y . 3) (?X . 4)))
   ((pat-match '(a (?* ?x) d) '(a b c d)) => ((?X B C)) @ 185)
   ((pat-match '(a (?* ?x) (?* ?y) d) '(a b c d)) => ((?Y B C) (?X)))
-  ((pat-match '(a (?* ?x) (?* ?y) ?x ?y) '(a b c d (b c) (d))) 
+  ((pat-match '(a (?* ?x) (?* ?y) ?x ?y) '(a b c d (b c) (d)))
    => ((?Y D) (?X B C)) @ 186)
-  ((pat-match '(?x ?op ?y is ?z (?if (eql (funcall ?op ?x ?y) ?z))) 
-	      '(3 + 4 is 7))
+  ((pat-match '(?x ?op ?y is ?z (?if (eql (funcall ?op ?x ?y) ?z)))
+          '(3 + 4 is 7))
    => ((?Z . 7) (?Y . 4) (?OP . +) (?X . 3)))
   ((pat-match '(?x ?op ?y (?if (funcall ?op ?x ?y))) '(3 > 4)) => NIL)
   ((pat-match-abbrev '?x* '(?* ?x)) => (?* ?X) @ 187)
@@ -481,7 +481,7 @@
   ((setf axyd (expand-pat-match-abbrev '(a ?x* ?y* d)))
    => (A (?* ?X) (?* ?Y) D))
   ((pat-match axyd '(a b c d)) => ((?Y B C) (?X)))
-  ((pat-match '(((?* ?x) (?* ?y)) ?x ?y) '((a b c d) (a b) (c d))) 
+  ((pat-match '(((?* ?x) (?* ?y)) ?x ?y) '((a b c d) (a b) (c d)))
    => NIL)
   ((requires "eliza-pm"))
 
@@ -516,7 +516,7 @@
   ((tree-search '(1) (is 6) #'next2 #'prepend) => 6 @ 208)
   ((graph-search '(1) (is 6) #'next2 #'prepend) => 6)
   ((path-states
-    (a*-search (list (make-path :state 1)) (is 6) 
+    (a*-search (list (make-path :state 1)) (is 6)
                #'next2 #'(lambda (x y) 1) (diff 6))) => (6 5 3 1) @ 210)
   (:section "6.5 GPS as Search")
   ((requires "gps-srch"))
@@ -550,11 +550,11 @@
   ((untrace isolate solve))
   (:section "7.3 Examples")
   ((student '(If the number of customers Tom gets is twice the square of
-           20 % of the number of advertisements he runs |,| 
+           20 % of the number of advertisements he runs |,|
            and the number of advertisements is 45 |,|
            then what is the number of customers Tom gets ?)) => nil @ 231)
-  ((student '(The daily cost of living for a group is the overhead cost plus 
-           the running cost for each person times the number of people in 
+  ((student '(The daily cost of living for a group is the overhead cost plus
+           the running cost for each person times the number of people in
            the group |.|  This cost for one group equals $ 100 |,|
            and the number of people in the group is 40 |.|
            If the overhead cost is 10 times the running cost |,|
@@ -595,21 +595,21 @@
   ((simp '(d (a * x ^ 2 + b * x + c) / d x)) => ((2 * (A * X)) + B) )
   "For the next one, note we had an error in the first printing of the book;"
   "the sign was reversed on the (d (u / v) ...) rule."
-  ((simp '(d ((a * x ^ 2 + b * x + c) / x) / d x)) 
+  ((simp '(d ((a * x ^ 2 + b * x + c) / x) / d x))
    => (((X * ((2 * (A * X)) + B)) - ((A * (X ^ 2)) + ((B * X) + C))) /
        (X ^ 2)))
   ((simp '(log ((d (x + x) / d x) / 2))) => 0 )
   ((simp '(log(x + x) - log x)) => (LOG 2))
   ((simp '(x ^ cos pi)) => (1 / X) )
   "These next two examples were also affected by the (d (u / v) ...) rule."
-  ((simp '(d (3 * x + (cos x) / x) / d x)) 
+  ((simp '(d (3 * x + (cos x) / x) / d x))
    => ((((X * (- (SIN X))) - (COS X)) / (X ^ 2)) + 3))
-  ((simp '(d ((cos x) / x) / d x)) 
+  ((simp '(d ((cos x) / x) / d x))
    => (((X * (- (SIN X))) - (COS X)) / (X ^ 2)))
   ((simp '(d (3 * x ^ 2 + 2 * x + 1) / d x)) => ((6 * X) + 2))
   ((simp '(sin(x + x) ^ 2 + cos(d x ^ 2 / d x) ^ 2)) => 1 )
   ((simp '(sin(x + x) * sin(d x ^ 2 / d x) +
-	      cos(2 * x) * cos(x * d 2 * y / d y))) => 1 )
+          cos(2 * x) * cos(x * d 2 * y / d y))) => 1 )
 
   (:section "8.5 Limits of Rule-Based Approaches")
   "In this section we return to some examples that pose problems."
@@ -621,24 +621,24 @@
   "In chapter 15, we develop a new version of the program that handles this problem."
 
   (:section "8.6 Integration")
-  ((set-simp-fn 'Int #'(lambda (exp) 
-			(integrate (exp-lhs exp) (exp-rhs exp)))) @ 258)
+  ((set-simp-fn 'Int #'(lambda (exp)
+            (integrate (exp-lhs exp) (exp-rhs exp)))) @ 258)
   ((simp '(Int x * sin(x ^ 2) d x)) => (1/2 * (- (COS (X ^ 2)))) )
-  ((simp '(Int ((3 * x ^ 3) - 1 / (3 * x ^ 3)) d x)) 
+  ((simp '(Int ((3 * x ^ 3) - 1 / (3 * x ^ 3)) d x))
    => ((3 * ((X ^ 4) / 4)) - (1/3 * ((X ^ -2) / -2))) )
   ((simp '(Int (3 * x + 2) ^ -2/3 d x)) => (((3 * X) + 2) ^ 1/3) )
   ((simp '(Int sin(x) ^ 2 * cos(x) d x)) => (((SIN X) ^ 3) / 3) )
   ((simp '(Int sin(x) / (1 + cos(x)) d x)) => (-1 * (LOG ((COS X) + 1))) )
-  ((simp '(Int (2 * x + 1) / (x ^ 2 + x - 1) d x)) 
+  ((simp '(Int (2 * x + 1) / (x ^ 2 + x - 1) d x))
    => (LOG ((X ^ 2) + (X - 1))) )
-  ((simp '(Int 8 * x ^ 2 / (x ^ 3 + 2) ^ 3 d x)) 
+  ((simp '(Int 8 * x ^ 2 / (x ^ 3 + 2) ^ 3 d x))
    => (8 * ((1/3 * (((X ^ 3) + 2) ^ -2)) / -2)) )
-  ((set-simp-fn 'Int 
-	       #'(lambda (exp)
-		   (unfactorize
-		    (factorize
-		     (integrate (exp-lhs exp) (exp-rhs exp)))))) @ 259)
-  ((simp '(Int 8 * x ^ 2 / (x ^ 3 + 2) ^ 3 d x)) 
+  ((set-simp-fn 'Int
+           #'(lambda (exp)
+           (unfactorize
+            (factorize
+             (integrate (exp-lhs exp) (exp-rhs exp)))))) @ 259)
+  ((simp '(Int 8 * x ^ 2 / (x ^ 3 + 2) ^ 3 d x))
    => (-4/3 * (((X ^ 3) + 2) ^ -2)) )
   )
 
@@ -708,8 +708,8 @@
   ((unify 'a 'a) => ((t . t)))
   "Here are some examples of UNIFIER:"
   ((unifier '(?x ?y a) '(?y ?x ?x)) => (a a a))
-  ((unifier '((?a * ?x ^ 2) + (?b * ?x) + ?c) 
-	    '(?z + (4 * 5) + 3))
+  ((unifier '((?a * ?x ^ 2) + (?b * ?x) + ?c)
+        '(?z + (4 * 5) + 3))
    => ((?a * 5 ^ 2) + (4 * 5) + 3))
 
   "Programming with Prolog"
@@ -750,32 +750,32 @@
   ((<- (nextto ?x ?y ?list) (iright ?x ?y ?list)) @ 374)
   ((<- (nextto ?x ?y ?list) (iright ?y ?x ?list)))
   ((<- (iright ?left ?right (?left ?right . ?rest))))
-  ((<- (iright ?left ?right (?x . ?rest)) 
+  ((<- (iright ?left ?right (?x . ?rest))
        (iright ?left ?right ?rest)))
   ((<- (= ?x ?x)))
   "Now we define the zebra puzzle:"
   ((<- (zebra ?h ?w ?z)
        ;; Each house is of the form:
        ;; (house nationality pet cigarette drink house-color)
-       (= ?h ((house norwegian ? ? ? ?)	;1,10
-	      ? 
-	      (house ? ? ? milk ?) ? ?)) ; 9
-       (member (house englishman ? ? ? red) ?h)	; 2
+       (= ?h ((house norwegian ? ? ? ?)    ;1,10
+          ?
+          (house ? ? ? milk ?) ? ?)) ; 9
+       (member (house englishman ? ? ? red) ?h)    ; 2
        (member (house spaniard dog ? ? ?) ?h) ; 3
        (member (house ? ? ? coffee green) ?h) ; 4
        (member (house ukrainian ? ? tea ?) ?h) ; 5
-       (iright (house ? ? ? ? ivory)	; 6
-	       (house ? ? ? ? green) ?h)
-       (member (house ? snails winston ? ?) ?h)	; 7
+       (iright (house ? ? ? ? ivory)    ; 6
+           (house ? ? ? ? green) ?h)
+       (member (house ? snails winston ? ?) ?h)    ; 7
        (member (house ? ? kools ? yellow) ?h) ; 8
        (nextto (house ? ? chesterfield ? ?) ;11
-	       (house ? fox ? ? ?) ?h)
-       (nextto (house ? ? kools ? ?)	;12
-	       (house ? horse ? ? ?) ?h)
-       (member (house ? ? luckystrike oj ?) ?h)	;13
+           (house ? fox ? ? ?) ?h)
+       (nextto (house ? ? kools ? ?)    ;12
+           (house ? horse ? ? ?) ?h)
+       (member (house ? ? luckystrike oj ?) ?h)    ;13
        (member (house japanese ? parliaments ? ?) ?h) ;14
        (nextto (house norwegian ? ? ? ?) ;15
-	       (house ? ? ? ? blue) ?h)
+           (house ? ? ? ? blue) ?h)
        (member (house ?w ? ? water ?) ?h) ;Q1
        (member (house ?z zebra ? ? ?) ?h))) ;Q2
   "If you want to test this out, run the following query:"
@@ -854,7 +854,7 @@
   ((defclass account* ()
      ((name :initarg :name :reader name*)
       (balance :initarg :balance :initform 0.00 :accessor balance*)
-      (interest-rate :allocation :class :initform .06 
+      (interest-rate :allocation :class :initform .06
                      :reader interest-rate*))) @ 445)
   ((setf a1 (make-instance 'account* :balance 5000.00
                           :name "Fred")) @ 446)
@@ -936,7 +936,7 @@
   ((defclass binary-tree-eql-bfs-problem
      (binary-tree-problem eql-problem bfs-problem) ()))
 
-  ((setf p1 (make-instance 'binary-tree-eql-bfs-problem 
+  ((setf p1 (make-instance 'binary-tree-eql-bfs-problem
                           :states '(1) :goal 12)))
   ((searcher p1) => 12)
 
@@ -957,19 +957,19 @@
 
   ((defmethod problem-combiner :around ((prob beam-problem) new old)
      (let ((combined (call-next-method)))
-       (subseq combined 0 (min (problem-beam-width prob) 
+       (subseq combined 0 (min (problem-beam-width prob)
                                (length combined))))))
 
   ((defclass binary-tree-eql-best-beam-problem
-     (binary-tree-problem eql-problem best-problem beam-problem) 
+     (binary-tree-problem eql-problem best-problem beam-problem)
      ()))
 
-  ((setf p3 (make-instance 'binary-tree-eql-best-beam-problem 
+  ((setf p3 (make-instance 'binary-tree-eql-best-beam-problem
                           :states '(1) :goal 12 :beam-width 3)))
 
   ((searcher p3) => 12)
 
-  ((defclass trip-problem (binary-tree-eql-best-beam-problem) 
+  ((defclass trip-problem (binary-tree-eql-best-beam-problem)
      ((beam-width :initform 1))) @ 453)
 
   ((defmethod cost-fn ((prob trip-problem) city)
@@ -978,8 +978,8 @@
   ((defmethod problem-successors ((prob trip-problem) city)
      (neighbors city)))
 
-  ((setf p4 (make-instance 'trip-problem 
-                          :states (list (city 'new-york)) 
+  ((setf p4 (make-instance 'trip-problem
+                          :states (list (city 'new-york))
                           :goal (city 'san-francisco))))
 
   ((searcher p4) =>
@@ -1026,7 +1026,7 @@
      "Store key in a dtree node.  Key must be (predicate . args);
   it is stored in the predicate's dtree."
      (dtree-index key (rename-variables key) ; store unique vars
-		  (get-dtree (predicate key)))) @ 481)
+          (get-dtree (predicate key)))) @ 481)
   "We have to reindex:"
   ((test-index))
   "We are now ready to test the retrieval mechanism:"
@@ -1037,7 +1037,7 @@
   ((retrieve-matches '(p ?x (?fn c))) =>
    ((P A (?FN C)) (P A (F C)) (P B (F C))))
   ((query-bind (?x ?fn) '(p ?x (?fn c))
-	       (format t "~&P holds between ~a and ~a of c." ?x ?fn)) @ 482)
+           (format t "~&P holds between ~a and ~a of c." ?x ?fn)) @ 482)
 
   (:section "14.10 Solutions to the Expressiveness Problems")
   "In this section we introduce a frame-like language, using the primitives"
@@ -1167,7 +1167,7 @@
   ((print-labelings (diagram 'poiuyt)) @ 583)
   "Now we try a more complex diagram:"
   ((defdiagram tower
-     (a Y b c d)    (n L q o) 
+     (a Y b c d)    (n L q o)
      (b W g e a)    (o W y j n)
      (c W e f a)    (p L r i)
      (d W f g a)    (q W n s w)
@@ -1181,7 +1181,7 @@
      (l L h k)      (y Y v u o)
      (m L k i)      (z Y t u v)) @ 584)
   ((print-labelings (ground (diagram 'tower) 'l 'k)) @ 584))
-  
+
 (defexamples 18 "Search and the Game of Othello"
   "In this chapter we will develop a simplified Othello-playing program."
   "It will not be a champion, but is much better than beginning players."
@@ -1192,7 +1192,7 @@
   "Now we can compare the weighted squares and count difference strategies"
   "by playing two games, alternating who goes first.  The NIL as third argument"
   "means don't print the board after each move."
-  ((othello (maximizer #'weighted-squares) 
+  ((othello (maximizer #'weighted-squares)
          (maximizer #'count-difference) nil) @ 610)
   ((othello (maximizer #'count-difference)
             (maximizer #'weighted-squares) nil))
@@ -1206,14 +1206,14 @@
   (:section "18.5 Smarter Searching: Alpha-Beta Search")
   "The following should produce the same result, only faster:"
   ((othello (alpha-beta-searcher 3 #'count-difference)
-	 (maximizer #'count-difference) nil) => 53)
+     (maximizer #'count-difference) nil) => 53)
 
   (:section "18.8 Playing a Series of Games")
   "A single game is not enough to establish that one strategy is better than"
   "another.  The function RANDOM-OTHELLO-SERIES allows two strategies to"
   "compete in a series of games."
   ((requires "othello2"))
-  ((random-othello-series 
+  ((random-othello-series
     (alpha-beta-searcher 2 #'weighted-squares)
     (alpha-beta-searcher 2 #'modified-weighted-squares)
     5) @ 628)
@@ -1234,7 +1234,7 @@
          (alpha-beta-searcher 3 #'weighted-squares)
          (alpha-beta-searcher 3 #'modified-weighted-squares)
          #'random-strategy)
-   1 10 
+   1 10
    '(count-difference weighted modified-weighted random)))
   )
 
@@ -1249,12 +1249,12 @@
   ((parser '(the table)) => ((NP (ART THE) (NOUN TABLE))))
   ((parser '(the ball hit the table)) =>
    ((SENTENCE (NP (ART THE) (NOUN BALL))
-	      (VP (VERB HIT)
-		  (NP (ART THE) (NOUN TABLE))))))
+          (VP (VERB HIT)
+          (NP (ART THE) (NOUN TABLE))))))
   ((parser '(the noun took the verb)) =>
    ((SENTENCE (NP (ART THE) (NOUN NOUN))
-	      (VP (VERB TOOK)
-		  (NP (ART THE) (NOUN VERB))))))
+          (VP (VERB TOOK)
+          (NP (ART THE) (NOUN VERB))))))
   "The range of sentences we can parse is quite limited."
   "The following grammar includes a wider variety."
   (*grammar4* @ 661)
@@ -1262,11 +1262,11 @@
   ((parser '(The man hit the table with the ball)) =>
    ((S (NP (D THE) (N MAN))
        (VP (VP (V HIT) (NP (D THE) (N TABLE)))
-	   (PP (P WITH) (NP (D THE) (N BALL)))))
+       (PP (P WITH) (NP (D THE) (N BALL)))))
     (S (NP (D THE) (N MAN))
        (VP (V HIT)
-	   (NP (NP (D THE) (N TABLE))
-	       (PP (P WITH) (NP (D THE) (N BALL))))))))
+       (NP (NP (D THE) (N TABLE))
+           (PP (P WITH) (NP (D THE) (N BALL))))))))
   "Here we see a phrase that is ambiguous between a sentence and a noun phrase:"
   ((parser '(the orange saw)) @ 662 =>
    ((S (NP (D THE) (N ORANGE)) (VP (V SAW)))
@@ -1295,14 +1295,14 @@
   ((parser '(the slithy toves gymbled on the wabe)) =>
    ((S (NP (D THE) (N SLITHY))
        (VP (VP (V TOVES) (NP (NAME GYMBLED)))
-	   (PP (P ON) (NP (D THE) (N WABE)))))
+       (PP (P ON) (NP (D THE) (N WABE)))))
     (S (NP (D THE) (N SLITHY))
        (VP (V TOVES) (NP (NP (NAME GYMBLED))
-			 (PP (P ON) (NP (D THE) (N WABE))))))
+             (PP (P ON) (NP (D THE) (N WABE))))))
     (S (NP (D THE) (A+ (A SLITHY)) (N TOVES))
        (VP (VP (V GYMBLED)) (PP (P ON) (NP (D THE) (N WABE)))))
     (NP (NP (D THE) (A+ (A SLITHY) (A+ (A TOVES))) (N GYMBLED))
-	(PP (P ON) (NP (D THE) (N WABE))))))
+    (PP (P ON) (NP (D THE) (N WABE))))))
   (:section "19.5 Parsing into a Semantic Representation")
   ((requires "syntax2"))
   "Syntactic parse trees of a sentence may be interesting, but by themselves"
@@ -1362,11 +1362,11 @@
   "Here is the trivial grammar from page 688 in DCG format:"
   ((clear-db))
   ((rule (S (?pred ?subj)) -->
-	 (NP ?agr ?subj)
-	 (VP ?agr ?pred)) @ 692)
+     (NP ?agr ?subj)
+     (VP ?agr ?pred)) @ 692)
   ((rule (NP ?agr (?det ?n)) -->
-	 (Det ?agr ?det)
-	 (N ?agr ?n)))
+     (Det ?agr ?det)
+     (N ?agr ?n)))
   ((rule (NP 3sg (the male))          --> (:word he)) @ 693)
   ((rule (NP ~3sg (some objects))     --> (:word they)))
   ((rule (VP 3sg sleep)               --> (:word sleeps)))
@@ -1386,13 +1386,13 @@
   "a way to unify semantic components together.  Here's one way:"
   ((clear-db))
   ((rule (S ?pred) -->
-	 (NP ?agr ?subj)
-	 (VP ?agr ?subj ?pred)) @ 694)
+     (NP ?agr ?subj)
+     (VP ?agr ?subj ?pred)) @ 694)
   ((rule (VP ?agr ?subj ?pred) -->
-	 (Verb/tr ?agr ?subj ?pred ?obj)
-	 (NP ?any-agr ?obj)))
+     (Verb/tr ?agr ?subj ?pred ?obj)
+     (NP ?any-agr ?obj)))
   ((rule (VP ?agr ?subj ?pred) -->
-	 (Verb/intr ?agr ?subj ?pred)))
+     (Verb/intr ?agr ?subj ?pred)))
 
   ((rule (Verb/tr ~3sg ?x (kiss ?x ?y) ?y) --> (:word kiss)))
   ((rule (Verb/tr 3sg ?x (kiss ?x ?y) ?y) --> (:word kisses)))
@@ -1404,10 +1404,10 @@
 
   "Here are the rules for noun phrases and nouns"
   ((rule (NP ?agr ?sem) -->
-	 (Name ?agr ?sem)))
+     (Name ?agr ?sem)))
   ((rule (NP ?agr (?det-sem ?noun-sem)) -->
-	 (Det ?agr ?det-sem)
-	 (Noun ?agr ?noun-sem)))
+     (Det ?agr ?det-sem)
+     (Noun ?agr ?noun-sem)))
 
   ((rule (Name 3sg Terry) --> (:word Terry)))
   ((rule (Name 3sg Jean)  --> (:word Jean)))
@@ -1439,20 +1439,20 @@
   ((rule (Noun 3sg ?x (picture ?x)) --> (:word picture)) @ 698)
   ((rule (Noun 3sg ?x (story ?x)) --> (:word story)))
   ((rule (Noun 3sg ?x (and (young ?x) (male ?x) (human ?x))) -->
-	 (:word boy)))
+     (:word boy)))
 
   ((rule (NP ?agr ?x ?pred ?pred) -->
-	 (Name ?agr ?name)))
+     (Name ?agr ?name)))
 
   ((rule (NP ?agr ?x ?pred ?np) -->
-	 (Det ?agr ?x ?noun&rel ?pred ?np)
-	 (Noun ?agr ?x ?noun)
-	 (rel-clause ?agr ?x ?noun ?noun&rel)))
+     (Det ?agr ?x ?noun&rel ?pred ?np)
+     (Noun ?agr ?x ?noun)
+     (rel-clause ?agr ?x ?noun ?noun&rel)))
 
   ((rule (rel-clause ?agr ?x ?np ?np) --> ))
   ((rule (rel-clause ?agr ?x ?np (and ?np ?rel)) -->
-	 (:word that)
-	 (VP ?agr ?x ?rel)))
+     (:word that)
+     (VP ?agr ?x ?rel)))
 
   ((rule (Verb/tr ~3sg ?x ?y (paint ?x ?y)) --> (:word paint)) @ 699)
   ((rule (Verb/tr 3sg  ?x ?y (paint ?x ?y)) --> (:word paints)))
@@ -1466,15 +1466,15 @@
   ((rule (Verb/intr 3sg  ?x (stinks ?x)) --> (:word stinks)))
 
   ((rule (VP ?agr ?x ?vp) -->
-	 (Verb/tr ?agr ?x ?obj ?verb)
-	 (NP ?any-agr ?obj ?verb ?vp)))
+     (Verb/tr ?agr ?x ?obj ?verb)
+     (NP ?any-agr ?obj ?verb ?vp)))
 
   ((rule (VP ?agr ?x ?vp) -->
-	 (Verb/intr ?agr ?x ?vp)))
+     (Verb/intr ?agr ?x ?vp)))
 
   ((rule (S ?np) -->
-	 (NP ?agr ?x ?vp ?np)
-	 (VP ?agr ?x ?vp)))
+     (NP ?agr ?x ?vp ?np)
+     (VP ?agr ?x ?vp)))
 
   "Now we define a function to show the output from a query."
   "In the book, you just saw the output of such a function."
@@ -1484,34 +1484,34 @@
   ((do-s '(Every picture paints a story)) :input "." @ 699)
   ((do-s '(Every boy that paints a picture sleeps)) :input ".")
   ((do-s '(Every boy that sleeps paints a picture)) :input ".")
-  ((do-s '(Every boy that paints a picture that sells paints a picture 
-		 that stinks)) :input "." @ 700)
+  ((do-s '(Every boy that paints a picture that sells paints a picture
+         that stinks)) :input "." @ 700)
 
   (:section "20.5 Preserving Quantifier Scope Ambiguity")
   ((clear-db))
   ((rule (S (and ?np ?vp)) -->
-	 (NP ?agr ?x ?np)
-	 (VP ?agr ?x ?vp)) @ 701)
+     (NP ?agr ?x ?np)
+     (VP ?agr ?x ?vp)) @ 701)
 
   ((rule (VP ?agr ?x (and ?verb ?obj)) -->
-	 (Verb/tr ?agr ?x ?o ?verb)
-	 (NP ?any-agr ?o ?obj)))
+     (Verb/tr ?agr ?x ?o ?verb)
+     (NP ?any-agr ?o ?obj)))
 
   ((rule (VP ?agr ?x ?verb) -->
-	 (Verb/intr ?agr ?x ?verb)))
+     (Verb/intr ?agr ?x ?verb)))
 
   ((rule (NP ?agr ?name t) -->
-	 (Name ?agr ?name)))
+     (Name ?agr ?name)))
 
   ((rule (NP ?agr ?x ?det) -->
-	 (Det ?agr ?x (and ?noun ?rel) ?det)
-	 (Noun ?agr ?x ?noun)
-	 (rel-clause ?agr ?x ?rel)))
+     (Det ?agr ?x (and ?noun ?rel) ?det)
+     (Noun ?agr ?x ?noun)
+     (rel-clause ?agr ?x ?rel)))
 
   ((rule (rel-clause ?agr ?x t) --> ))
   ((rule (rel-clause ?agr ?x ?rel) -->
-	 (:word that)
-	 (VP ?agr ?x ?rel)))
+     (:word that)
+     (VP ?agr ?x ?rel)))
 
   ((rule (Name 3sg Terry)                     --> (:word Terry)))
   ((rule (Name 3sg Jean)                      --> (:word Jean)))
@@ -1534,7 +1534,7 @@
   ((?- (word sees verb ?infl ?senses)) :input ".")
   ((try S John promised Kim to persuade Lee to sleep) :input ";;;.")
   (:section "21.14 Examples")
-  ((try S When did John promise Kim to persuade Lee to sleep) 
+  ((try S When did John promise Kim to persuade Lee to sleep)
    @ 746 :input ";;;.")
   ((try S Kim would not have been looking for Lee) @ 747 :input ";;;.")
   ((try s It should not surprise you that Kim does not like Lee) :input ";;;.")
@@ -1549,17 +1549,17 @@
   "to avoid going into a read-eval-print loop with SCHEME.  This is a new"
   "functionality, no in the book, added to make these examples easier."
   ((scheme '(+ 2 2)) @ 760 => 4 )
-  ((scheme '((if (= 1 2) * +) 3 4)) => 7) 
-  ((scheme '((if (= 1 1) * +) 3 4)) => 12 @ 761) 
+  ((scheme '((if (= 1 2) * +) 3 4)) => 7)
+  ((scheme '((if (= 1 1) * +) 3 4)) => 12 @ 761)
   ((scheme '(set! fact (lambda (n) (if (= n 0) 1
-				     (* n (fact (- n 1))))))))
-  ((scheme '(fact 5)) => 120) 
+                     (* n (fact (- n 1))))))))
+  ((scheme '(fact 5)) => 120)
   ((scheme '(set! table (lambda (f start end)
-			  (if (<= start end)
-			      (begin
-			       (write (list start (f start)))
-			       (newline)
-			       (table f (+ start 1) end)))))))
+              (if (<= start end)
+                  (begin
+                   (write (list start (f start)))
+                   (newline)
+                   (table f (+ start 1) end)))))))
 
   ((scheme '(table fact 1 10)) => NIL )
   ((scheme '(table (lambda (x) (* x x x)) 5 10)) => NIL)
@@ -1573,19 +1573,19 @@
   ((scheme-macro-expand '(let ((x 1) (y 2)) (+ x y))) =>
    ((LAMBDA (X Y) (+ X Y)) 1 2))
   ((scheme-macro-expand
-    '(letrec 
+    '(letrec
       ((even? (lambda (x) (or (= x 0) (odd? (- x 1)))))
        (odd?  (lambda (x) (even? (- x 1)))))
       (even? z))))
   "Now let's look at uses of the macros DEFINE and LET*"
   ((scheme '(define (reverse l)
-	      (if (null? l) nil
-		(append (reverse (cdr l)) (list (car l)))))) => REVERSE)
+          (if (null? l) nil
+        (append (reverse (cdr l)) (list (car l)))))) => REVERSE)
   ((scheme '(reverse '(a b c d))) => (D C B A))
   ((scheme '(let* ((x 5) (y (+ x x)))
-	      (if (or (= x 0) (and (< 0 y) (< y 20)))
-		  (list x y)
-		(+ y x)))) => (5 10))
+          (if (or (= x 0) (and (< 0 y) (< y 20)))
+          (list x y)
+        (+ y x)))) => (5 10))
 
 
   (:section "22.4 Throw, Catch, and Call/cc")

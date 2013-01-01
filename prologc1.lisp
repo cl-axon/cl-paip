@@ -2,7 +2,7 @@
 ;;;; Code from Paradigms of AI Programming
 ;;;; Copyright (c) 1991 Peter Norvig
 
-;;;; File prologc1.lisp: Version 1 of the prolog compiler, 
+;;;; File prologc1.lisp: Version 1 of the prolog compiler,
 ;;;; including the destructive unification routines from Chapter 11.
 
 (requires "prolog")
@@ -97,9 +97,9 @@
     (compile
      (eval
       `(defun ,predicate (,@parameters cont)
-	.,(mapcar #'(lambda (clause)
-		      (compile-clause parameters clause 'cont))
-	   clauses))))))
+    .,(mapcar #'(lambda (clause)
+              (compile-clause parameters clause 'cont))
+       clauses))))))
 
 (defun make-parameters (arity)
   "Return the list (?arg1 ?arg2 ... ?arg-arity)"
