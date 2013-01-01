@@ -29,4 +29,7 @@ License License Agreement
 -------------------------
 A few people have written to say they like this license agreement and want to
 know if they can use it. So this is to clarify that you are free to use this
-license agreement, subject to this license agreement.
+license agreement, subject to `this license`_ agreement.
+
+.. Links:
+.. _this license: LICENSE.rst
