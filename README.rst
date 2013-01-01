@@ -53,10 +53,10 @@ for each file.
 ======= ========        ===========
 Chapter Filename        Description
 ======= ========        ===========
-        README.rst      This file: explanation and index
-        examples.lisp   A list of example inputs taken from the book
-        tutor.lisp      An interpreter for running the examples
-        auxfns.lisp     Auxiliary functions; load this before anything else
+-       README.rst      This file: explanation and index
+-       examples.lisp   A list of example inputs taken from the book
+-       tutor.lisp      An interpreter for running the examples
+-       auxfns.lisp     Auxiliary functions; load this before anything else
 1       intro.lisp      A few simple definitions
 2       simple.lisp     Random sentence generator (two versions)
 3       overview.lisp   14 versions of LENGTH and other examples
