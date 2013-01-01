@@ -31,10 +31,6 @@
 ;;; A more sophisticated REQUIRES would only load it if it has not yet
 ;;; been loaded, and would search in different directories if needed.
 
-(defun requires (&rest files)
-  "The arguments are files that are required to run an application."
-  (mapc #'load-paip-file files))
-
 (defvar *paip-files*
   `("auxfns" "tutor" "examples"
     "intro" "simple" "overview" "gps1" "gps" "eliza1" "eliza" "patmatch"
@@ -76,13 +72,13 @@
                  ((:lisp :source) *paip-source*)
                  ((:binary :bin) *paip-binary*))))
 
-(defun compile-all-paip-files ()
-  (mapc #'compile-paip-file *paip-files*))
-
 (defun compile-paip-file (name)
   (let ((path (paip-pathname name :lisp)))
     (load path)
     (compile-file path :output-file (paip-pathname name :binary))))
+
+(defun compile-all-paip-files ()
+  (mapc #'compile-paip-file *paip-files*))
 
 (defun load-paip-file (file)
   "Load the binary file if it exists and is newer, else load the source."
@@ -93,6 +89,10 @@
     (load (if (and (probe-file bin) src-date bin-date (>= bin-date src-date))
           bin
         src))))
+
+(defun requires (&rest files)
+  "The arguments are files that are required to run an application."
+  (mapc #'load-paip-file files))
 
 ;;;; Macros (formerly in auxmacs.lisp: that file no longer needed)
 
@@ -113,6 +113,10 @@
      (let ,(mapcar #'(lambda (var tmp) `(,var ',tmp))
                variables temps)
        .,body)))))
+
+  (defun starts-with (list x)
+    "Is x a list whose first element is x?"
+    (and (consp list) (eql (first list) x)))
 
   (defun side-effect-free? (exp)
     "Is exp a constant, variable, or function,
@@ -143,10 +147,19 @@
     (or (find-anywhere item (first tree))
         (find-anywhere item (rest tree)))))
 
-  (defun starts-with (list x)
-    "Is x a list whose first element is x?"
-    (and (consp list) (eql (first list) x)))
   )
+
+;;; ==============================
+
+(defun length=1 (x)
+  "Is x a list of length 1?"
+  (and (consp x) (null (cdr x))))
+
+(defun rest3 (list)
+  "The rest of a list after the first THREE elements."
+  (cdddr list))
+
+;;; ==============================
 
 ;;;; Auxiliary Functions
 
@@ -281,40 +294,9 @@
 (defconstant fail nil)
 (defconstant no-bindings '((t . t)))
 
-(defun pat-match (pattern input &optional (bindings no-bindings))
-  "Match pattern against input in the context of the bindings"
-  (cond ((eq bindings fail) fail)
-        ((variable-p pattern) (match-variable pattern input bindings))
-        ((eql pattern input) bindings)
-        ((and (consp pattern) (consp input))
-         (pat-match (rest pattern) (rest input)
-                    (pat-match (first pattern) (first input) bindings)))
-        (t fail)))
-
-(defun match-variable (var input bindings)
-  "Does VAR match input?  Uses (or updates) and returns bindings."
-  (let ((binding (get-binding var bindings)))
-    (cond ((not binding) (extend-bindings var input bindings))
-          ((equal input (binding-val binding)) bindings)
-          (t fail))))
-
-(defun make-binding (var val) (cons var val))
-
-(defun binding-var (binding)
-  "Get the variable part of a single binding."
-  (car binding))
-
-(defun binding-val (binding)
-  "Get the value part of a single binding."
-  (cdr binding))
-
 (defun get-binding (var bindings)
   "Find a (variable . value) pair in a binding list."
   (assoc var bindings))
-
-(defun lookup (var bindings)
-  "Get the value part (for var) from a binding list."
-  (binding-val (get-binding var bindings)))
 
 (defun extend-bindings (var val bindings)
   "Add a (var . value) pair to a binding list."
@@ -325,9 +307,40 @@
             nil
             bindings)))
 
+(defun binding-val (binding)
+  "Get the value part of a single binding."
+  (cdr binding))
+
+(defun match-variable (var input bindings)
+  "Does VAR match input?  Uses (or updates) and returns bindings."
+  (let ((binding (get-binding var bindings)))
+    (cond ((not binding) (extend-bindings var input bindings))
+          ((equal input (binding-val binding)) bindings)
+          (t fail))))
+
 (defun variable-p (x)
   "Is x a variable (a symbol beginning with `?')?"
   (and (symbolp x) (equal (elt (symbol-name x) 0) #\?)))
+
+(defun pat-match (pattern input &optional (bindings no-bindings))
+  "Match pattern against input in the context of the bindings"
+  (cond ((eq bindings fail) fail)
+        ((variable-p pattern) (match-variable pattern input bindings))
+        ((eql pattern input) bindings)
+        ((and (consp pattern) (consp input))
+         (pat-match (rest pattern) (rest input)
+                    (pat-match (first pattern) (first input) bindings)))
+        (t fail)))
+
+(defun make-binding (var val) (cons var val))
+
+(defun binding-var (binding)
+  "Get the variable part of a single binding."
+  (car binding))
+
+(defun lookup (var bindings)
+  "Get the value part (for var) from a binding list."
+  (binding-val (get-binding var bindings)))
 
 ;;; ==============================
 
@@ -348,17 +361,17 @@
             (if found-p val
                 (setf (gethash k table) (apply fn args))))))))
 
+(defun clear-memoize (fn-name)
+  "Clear the hash table from a memo function."
+  (let ((table (get fn-name 'memo)))
+    (when table (clrhash table))))
+
 (defun memoize (fn-name &key (key #'first) (test #'eql))
   "Replace fn-name's global definition with a memoized version."
   (clear-memoize fn-name)
   (setf (symbol-function fn-name)
         (memo (symbol-function fn-name)
               :name fn-name :key key :test test)))
-
-(defun clear-memoize (fn-name)
-  "Clear the hash table from a memo function."
-  (let ((table (get fn-name 'memo)))
-    (when table (clrhash table))))
 
 ;;;; Delayed computation:
 
@@ -453,18 +466,6 @@
   (if (and (eql x (car x-y)) (eql y (cdr x-y)))
       x-y
       (cons x y)))
-
-;;; ==============================
-
-(defun length=1 (x)
-  "Is x a list of length 1?"
-  (and (consp x) (null (cdr x))))
-
-(defun rest3 (list)
-  "The rest of a list after the first THREE elements."
-  (cdddr list))
-
-;;; ==============================
 
 (defun unique-find-if-anywhere (predicate tree
                                 &optional found-so-far)
