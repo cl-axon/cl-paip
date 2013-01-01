@@ -54,6 +54,7 @@ for each file.
 Chapter Filename        Description
 ======= =============== =======================================================
 -       README.rst      This file: explanation and index
+-       LICENSE.rst     The license
 -       examples.lisp   A list of example inputs taken from the book
 -       tutor.lisp      An interpreter for running the examples
 -       auxfns.lisp     Auxiliary functions; load this before anything else
