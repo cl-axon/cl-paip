@@ -1,11 +1,11 @@
 ;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
 ;;; Code from Paradigms of AI Programming
 ;;; Copyright (c) 1991 Peter Norvig
-(defpackage :paip.auxfns
+(defpackage :paip
   (:use :common-lisp)
   (:shadow :symbol :debug))
 
-(in-package :paip.auxfns)
+(in-package :paip)
 
 ;;; File auxfns.lisp: Auxiliary functions used by all other programs
 ;;; Load this file before running any other programs.
