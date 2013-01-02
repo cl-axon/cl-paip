@@ -26,6 +26,7 @@
 (defun length1 (list)
   (let ((len 0))            ; start with LEN=0
     (dolist (element list)  ; and on each iteration
+      (declare (ignorable element))
       (incf len))           ;  increment LEN by 1
     len))                   ; and return LEN
 
@@ -34,6 +35,7 @@
 (defun length1.1 (list)         ; alternate version:
   (let ((len 0))                ; (not my preference)
     (dolist (element list len)  ; uses len as result here
+      (declare (ignorable element))
       (incf len))))
 
 ;;; ==============================
@@ -41,6 +43,7 @@
 (defun length2 (list)
   (let ((len 0))                    ; start with LEN=0
     (mapc #'(lambda (element)       ; and on each iteration
+              (declare (ignorable element))
               (incf len))           ;  increment LEN by 1
           list)
     len))                           ; and return LEN
@@ -71,10 +74,13 @@
 
 ;;; ==============================
 
+(defun true (x)
+  (declare (ignorable x))
+  t)
+
 (defun length7 (list)
   (count-if #'true list))
 
-(defun true (x) t)
 
 ;;; ==============================
 
@@ -92,13 +98,13 @@
 
 ;;; ==============================
 
-(defun length10 (list)
-  (length10-aux list 0))
-
 (defun length10-aux (sublist len-so-far)
   (if (null sublist)
       len-so-far
       (length10-aux (rest sublist) (+ 1 len-so-far))))
+
+(defun length10 (list)
+  (length10-aux list 0))
 
 ;;; ==============================
 
@@ -172,12 +178,15 @@
         (t (princ " ") (dprint (first x)) (pr-rest (rest x)))))
 
 ;;; ==============================
+;;;
+(defun true (&rest ignore)
+  (declare (ignorable ignore))
+  t)
 
 (defun same-shape-tree (a b)
   "Are two trees the same except for the leaves?"
   (tree-equal a b :test #'true))
 
-(defun true (&rest ignore) t)
 
 ;;; ==============================
 
@@ -201,6 +210,10 @@
                    :name 'vegetable
                    :no (make-node :name 'mineral))))
 
+(defun give-up ()
+  (format t "~&I give up - what is it? ")
+  (make-node :name (read)))
+
 
 (defun questions (&optional (node *db*))
   (format t "~&Is it a ~a? " (node-name node))
@@ -214,10 +227,6 @@
     (it 'aha!)
     (t (format t "Reply with YES, NO, or IT if I have guessed it.")
        (questions node))))
-
-(defun give-up ()
-  (format t "~&I give up - what is it? ")
-  (make-node :name (read)))
 
 ;;; ==============================
 
@@ -261,12 +270,12 @@
 
 ;;; ==============================
 
-(defun eat-porridge (bear)
-  (assert (< too-cold (temperature (bear-porridge bear)) too-hot)
-          (bear (bear-porridge bear))
-          "~a's porridge is not just right: ~a"
-          bear (hotness (bear-porridge bear)))
-  (eat (bear-porridge bear)))
+;(defun eat-porridge (bear)
+;  (assert (< too-cold (temperature (bear-porridge bear)) too-hot)
+;          (bear (bear-porridge bear))
+;          "~a's porridge is not just right: ~a"
+;          bear (hotness (bear-porridge bear)))
+;  (eat (bear-porridge bear)))
 
 ;;; ==============================
 
@@ -285,17 +294,17 @@
 
 ;;; ==============================
 
-(defun math-quiz (op range n)
-  "Ask the user a series of math problems."
-  (dotimes (i n)
-    (problem (random range) op (random range))))
-
 (defun problem (x op y)
   "Ask a math problem, read a reply, and say if it is correct."
   (format t "~&How much is ~d ~a ~d?" x op y)
   (if (eql (read) (funcall op x y))
       (princ "Correct!")
       (princ "Sorry, that's not right.")))
+
+(defun math-quiz (op range n)
+  "Ask the user a series of math problems."
+  (dotimes (i n)
+    (problem (random range) op (random range))))
 
 ;;; ==============================
 
@@ -313,15 +322,7 @@
 
 ;;; ==============================
 
-(defun find-all (item sequence &rest keyword-args
-                 &key (test #'eql) test-not &allow-other-keys)
-  "Find all those elements of sequence that match item,
-  according to the keywords.  Doesn't alter sequence."
-  (if test-not
-      (apply #'remove item sequence
-             :test-not (complement test-not) keyword-args)
-      (apply #'remove item sequence
-             :test (complement test) keyword-args)))
+; note: the fuction find-all is defined in auxfns.lisp
 
 ;;; ==============================
 
@@ -334,19 +335,26 @@
 
 (defun length14 (list &aux (len 0))
   (dolist (element list len)
+    (declare (ignorable element))
     (incf len)))
 
 ;;; ==============================
 
 (defun length-r (list)
-  (reduce #'+ (mapcar #'(lambda (x) 1) list)))
+  (reduce #'+ (mapcar #'(lambda (x)
+                          (declare (ignorable x))
+                          1) list)))
 
 (defun length-r (list)
-  (reduce #'(lambda (x y) (+ x 1)) list
+  (reduce #'(lambda (x y)
+              (declare (ignorable y))
+              (+ x 1)) list
           :initial-value 0))
 
 (defun length-r (list)
-  (reduce #'+ list :key #'(lambda (x) 1)))
+  (reduce #'+ list :key #'(lambda (x)
+                            (declare (ignorable x))
+                            1)))
 
 ;;; ==============================
 
