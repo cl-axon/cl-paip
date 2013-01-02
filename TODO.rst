@@ -1,3 +1,14 @@
+Convert to ASDF/Quicklisp package:
+
+* create paip.asd
+
+* create subdirs for each chapter and move code into those subdirs
+
+* export all the functions in package.lisp
+
+* update README instructions to account for these changes
+
+
 The following chapter's source code have issues in SBCL:
 
 * Chapter 7 - SB-KERNEL:*MAXIMUM-ERROR-DEPTH* exceeded.
