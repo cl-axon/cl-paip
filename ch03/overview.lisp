@@ -4,6 +4,8 @@
 
 ;;;; File overview.lisp: miscellaneous functions from Overview chapter
 
+(in-package #:paip.ch03)
+
 (defun tax-bracket (income)
   "Determine what percent tax should be paid for this income."
   (cond ((< income 10000.00) 0.00)

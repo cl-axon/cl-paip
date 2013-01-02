@@ -4,7 +4,7 @@
 
 ;;;; File gps-srch.lisp: Section 6.4 GPS based on explicit search
 
-(requires "gps" "search")
+(paip.common:requires "ch04/gps" "ch06/search")
 
 (defun search-gps (start goal &optional (beam-width 10))
   "Search for a sequence of operators leading to goal."

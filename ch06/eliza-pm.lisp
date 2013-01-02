@@ -4,7 +4,7 @@
 
 ;;;; File eliza-pm.lisp: Updated version of eliza in section 6.3
 
-(requires "patmatch" "eliza")
+(paip.common:requires "ch06/patmatch" "ch05/eliza")
 
 (defun eliza ()
   "Respond to user input using pattern matching rules."

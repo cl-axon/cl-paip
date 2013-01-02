@@ -18,9 +18,8 @@ Installation Instructions
 
 .. code:: lisp
 
-   (load "auxfns.lisp")
-   (in-package :paip)
-   (requires "examples")
+   (ql:quickload 'paip)
+   (in-package :paip.examples)
    (do-examples :all)
 
 This should print out a long list of inputs and outputs, and the last
@@ -28,8 +27,8 @@ output should be the total number of errors. If all goes well, this should be
 "0".
 
 If you would like to run the examples for just a given chapter, you can do that
-as well. For instance, once you have done ``(requires "examples")``, this will
-execute the examples for Chapter 3:
+as well. For instance, once you have done ``(in-package :paip.examples)``, the
+following will execute the examples for Chapter 3:
 
 .. code:: lisp
 

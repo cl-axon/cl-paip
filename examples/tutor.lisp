@@ -4,7 +4,7 @@
 
 ;;;; PAIP TUTOR
 
-(requires "auxfns")
+(in-package #:paip.examples)
 
 (defvar *chapters* '() "List of chapter structures, one per chapter.")
 
@@ -94,7 +94,7 @@
     (cond ((stringp example)
        (when stream
          (format stream "~A~%" example)))
-      ((starts-with example ':section)
+      ((paip.common:starts-with example ':section)
        (display-section (second example) interface))
       ((consp example)
        (let ((exp (copy-tree (first example))) ;; To avoid NCONC problems
@@ -173,7 +173,7 @@
 (defun do-documentation-examples (examples interface)
   "Go through any documentation strings or (:SECTION ...) examples."
   (loop (let ((one (pop examples)))
-      (cond ((or (stringp one) (starts-with one ':section))
+      (cond ((or (stringp one) (paip.common:starts-with one ':section))
          (do-example one interface))
         (t (RETURN)))))
   examples)

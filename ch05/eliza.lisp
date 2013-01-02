@@ -5,7 +5,7 @@
 ;;;; File eliza.lisp: Advanced version of Eliza.
 ;;; Has more rules, and accepts input without parens.
 
-(requires "eliza1")
+(paip.common:requires "ch05/eliza1")
 
 ;;; ==============================
 

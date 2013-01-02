@@ -2,6 +2,8 @@
 ;;; Code from Paradigms of Artificial Intelligence Programming
 ;;; Copyright (c) 1991 Peter Norvig
 
+(in-package #:paip.ch02)
+
 (defun sentence ()    (append (noun-phrase) (verb-phrase)))
 (defun noun-phrase () (append (Article) (Noun)))
 (defun verb-phrase () (append (Verb) (noun-phrase)))

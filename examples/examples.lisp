@@ -2,9 +2,9 @@
 ;;;; Code from Paradigms of AI Programming
 ;;;; Copyright (c) 1991, 1996 Peter Norvig
 
-(requires "tutor")
+(paip.common:requires "examples/tutor")
 
-(defexamples 1 "Introduction to Lisp"
+(paip.examples:defexamples 1 "Introduction to Lisp"
   "This chapter is for people with little or no experince in Lisp."
   "Intermediate or advanced readers can skim or skip this chapter."
   ""
@@ -20,6 +20,7 @@
   ('(pat Kim) => (PAT KIM))
   "Let's look at some more list processing functions"
   (:section "1.4 Lists")
+  ((defvar p nil))
   ((setf p '(John Q Public)) @ 10)
   ((first p))
   ((rest p))
@@ -31,6 +32,7 @@
   (p @ 11)
   ((cons 'Mr p))
   ((cons (first p) (rest p)))
+  ((defvar town nil))
   ((setf town (list 'Anytown 'USA)))
   ((list p 'of town 'may 'have 'already 'won!))
   ((append p '(of) town '(may have already won)))
@@ -38,7 +40,8 @@
   (:section "1.5 Defining New Functions")
   "The special form DEFUN stands for 'define function.'"
   "It is used here to define a new function called last-name:"
-  ((requires "intro"))
+  ((paip.common:requires "ch01/intro"))
+  ((in-package #:paip.ch01))
   ((last-name p) => PUBLIC @ 13)
   ((last-name '(Rex Morgan MD)) => MD)
   ((last-name '(Spot)) => SPOT)
@@ -66,18 +69,18 @@
   ((defparameter *titles*
      '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
      "A list of titles that can appear at the start of a name."))
-  ((defun first-name (name)
+  ((defun first-name-2 (name)
      "Select the first name from a name represented as a list."
      (if (member (first name) *titles*)
      (first-name (rest name))
        (first name))) @ 16)
   ((mapcar #'first-name names))
-  ((first-name '(Madam Major General Paula Jones)) => PAULA)
-  "We can see how this works by tracing the execution of first-name:"
-  ((trace first-name))
-  ((first-name '(John Q Public)) => JOHN @ 17)
-  ((first-name '(Madam Major General Paula Jones)) => PAULA)
-  ((untrace first-name))
+  ((first-name-2 '(Madam Major General Paula Jones)) => PAULA)
+  "We can see how this works by tracing the execution of first-name-2:"
+  ((trace first-name-2))
+  ((first-name-2 '(John Q Public)) => JOHN @ 17)
+  ((first-name-2 '(Madam Major General Paula Jones)) => PAULA)
+  ((untrace first-name-2))
   (:section "1.7 Higher-Order Functions")
   ((apply #'+ '(1 2 3 4)) => 10)
   ((apply #'append '((1 2 3) (a b c))))
@@ -87,15 +90,16 @@
   ((apply #'self-and-double '(3)) => (3 6))
   "Now let's return to the mapping functions:"
   ((mapcar #'self-and-double '(1 10 300)))
-  ((mappend #'self-and-double '(1 10 300)))
+  ((paip.common:mappend #'self-and-double '(1 10 300)))
   "FUNCALL is similar to APPLY; it too takes a function as its"
   "first argument and applies the function to a list of arguments,"
   "but in the case of FUNCALL, the arguments are listed separately:"
   ((funcall #'+ 2 3) => 5 @ 20)
   ((apply #'+ '(2 3)) => 5)
+  ((in-package #:paip.examples))
   )
 
-(defexamples 2 "A Simple Lisp Program"
+(paip.examples:defexamples 2 "A Simple Lisp Program"
   "This chapter shows how to combine the basic functions and"
   "special forms of Lisp into a complete program"
   "The program generates random English sentences."
@@ -103,7 +107,8 @@
   "We can test the program by generating a few random sentences."
   "(Note that since these are random, you won't get the same ones"
   "as in the book.)"
-  ((requires "simple"))
+  ((paip.common:requires "ch02/simple"))
+  ((in-package #:paip.ch02))
   ((sentence) @ 36)
   ((sentence) @ 36)
   ((sentence) @ 36)
@@ -125,10 +130,11 @@
   ((generate 'sentence))
   "Another advantage is that the same data (grammar) can be used"
   "for more than one purpose.  Consider generate-tree:"
-  ((generate-tree 'sentence) @ 45))
+  ((generate-tree 'sentence) @ 45)
+  ((in-package #:paip.examples)))
 
 
-(defexamples 3 "Overview of Lisp"
+(paip.examples:defexamples 3 "Overview of Lisp"
   "This chapter briefly covers the most important special forms and"
   "functions in Lisp."
   (:section "3.2 Special Forms")
@@ -145,7 +151,8 @@
   ((remove-if #'oddp '(1 2 3 2 1 0 -1)) => (2 2 0))
   ((remove-if-not #'oddp '(1 2 3 2 1 0 -1)) => (1 3 1 -1))
   "The forms TRACE and UNTRACE are used to control debugging info:"
-  ((requires "overview"))
+  ((paip.common:requires "ch03/overview"))
+  ((in-package #:paip.ch03))
   ((trace length9) @ 65)
   ((length9 '(1 b c)) => 3)
   ((untrace length9))
@@ -223,14 +230,15 @@
   ((funcall your-account 'withdraw 100.00) => 400.0)
   ((funcall my-account 'withdraw 25.00) => 400.0)
   "This style of programming is covered in more detail in chapter 13."
-  )
+  ((in-package #:paip.examples)))
 
-(defexamples 4 "GPS: The General Problem Solver"
+(paip.examples:defexamples 4 "GPS: The General Problem Solver"
   "The General problem Solver, developed in 1957 by Alan Newell and Herbert"
   "Simon, embodied a grandiose vision: a single computer program that could"
   "solve ANY problem.  GPS caused quite a stir ..."
   (:section "4.4 Stage 4: test")
-  ((requires "gps1"))
+  ((paip.common:requires "ch04/gps1"))
+  ((in-package #:paip.ch04))
   "Here are some examples of using GPS"
   "The first example works with a complex chain of steps."
   ((gps '(son-at-home car-needs-battery have-money have-phone-book)
@@ -280,7 +288,7 @@
   "sibling goal,' 'leaping before you look,' and 'recursive subgoal' problems."
   "The most important change is that, instead of printing a message when each"
   "operator is applied, we will instead have GPS return the resulting state."
-  ((requires "gps"))
+  ((paip.common.requires "ch04/gps"))
   "We use the list of operators that includes the 'asking the shop their"
   "phone number' operator."
   ((push (make-op :action 'ask-phone-number
@@ -420,14 +428,15 @@
   ((gps '(son-at-home have-money car-works)
        '(son-at-school have-money)) => NIL)
   ((undebug))
-  )
+  ((in-package #:paip.examples)))
 
-(defexamples 5 "Eliza: Dialog with a Machine"
+(paip.examples:defexamples 5 "Eliza: Dialog with a Machine"
   "ELIZA was one of the first programs to feature English output as well as input."
   "The program was named after the heroine of Pygmalion, who was taught to"
   "speak proper English by a dedicated teacher."
   (:section "5.2 Pattern Matching")
-  ((requires "eliza1"))
+  ((paip.common:requires "ch05/eliza1"))
+  ((in-package #:paip.ch05))
   "The hard part is the notion of pattern matching and transformation."
   "All symbols beginning with ? are variables for the pattern matcher."
   "First we see how to substitute variable/value pairs into expressions:"
@@ -452,20 +461,21 @@
   ((pat-match '((?* ?p) need (?* ?x))
           '(Mr Hulot and I need a vacation)) @ 160)
   (:section "5.4 The Eliza Program: A Rule-Based Translator")
-  ((requires "eliza"))
+  ((paip.common:requires "ch05/eliza"))
   "We can't show you an interactive ELIZA session, because the replies are"
   "random, and thus change every time.  You can experiment on your own by"
   "evaluating (ELIZA) and typing in your end of the conversation.
   Type (good bye) when you are done."
-  )
+  ((in-package #:paip.examples)))
 
-(defexamples 6 "Building Software Tools"
+(paip.examples:defexamples 6 "Building Software Tools"
   "In chapters 4 and 5 we were concerned with buildinng two particular"
   "programs, GPS and ELIZA.  In this chapter, we will reexamine those"
   "two programs to discover some common patterns.  Those patterns will be"
   "abstracted out to form reusable software tools."
   (:section "6.2 A Pattern-Matching tool")
-  ((requires "patmatch"))
+  ((paip.common:requires "ch06/patmatch"))
+  ((in-package #:paip.ch01))
   ((pat-match '(x = (?is ?n numberp)) '(x = 34)) => ((?n . 34)) @ 179)
   ((pat-match '(x = (?is ?n numberp)) '(x = x)) => NIL)
   ((pat-match '(?x (?or < = >) ?y) '(3 < 4)) => ((?Y . 4) (?X . 3)))
@@ -488,10 +498,10 @@
   ((pat-match axyd '(a b c d)) => ((?Y B C) (?X)))
   ((pat-match '(((?* ?x) (?* ?y)) ?x ?y) '((a b c d) (a b) (c d)))
    => NIL)
-  ((requires "eliza-pm"))
+  ((paip.common:requires "ch06/eliza-pm"))
 
   (:section "6.4 A Set of Searching Tools")
-  ((requires "search"))
+  ((paip.common:requires "ch06/search"))
   ((debug :search) @ 192)
   "We can search through the binary tree, looking for, say, 12 as the goal."
   "With breadth-first search this would yield an infinite loop, so we won't"
@@ -524,7 +534,7 @@
     (a*-search (list (make-path :state 1)) (is 6)
                #'next2 #'(lambda (x y) 1) (diff 6))) => (6 5 3 1) @ 210)
   (:section "6.5 GPS as Search")
-  ((requires "gps-srch"))
+  ((paip.common:requires "ch06/gps-srch"))
   ((setf start '((c on a) (a on table) (b on table) (space on c)
                  (space on b) (space on table))) @ 213)
   ((use (make-block-ops '(a b c))) => 18)
@@ -538,9 +548,9 @@
        (EXECUTING (MOVE C FROM A TO TABLE))
        (EXECUTING (MOVE B FROM TABLE TO C))
        (EXECUTING (MOVE A FROM TABLE TO B))))
-  )
+  ((in-package #:paip.examples)))
 
-(defexamples 7 "STUDENT: Solving Algebra Word Problems"
+(paip.examples:defexamples 7 "STUDENT: Solving Algebra Word Problems"
   "STUDENT was another early language understanding program, written by Daniel"
   "Bobrow in 1964.  It was designed to read and solve the kind of word"
   "problems found in high school algebra books."
@@ -572,7 +582,7 @@
            If Robin is 0 feet tall |,| how old is Fran ?)))
   )
 
-(defexamples 8 "Symbolic Mathematics: A Simplification Program"
+(paip.examples:defexamples 8 "Symbolic Mathematics: A Simplification Program"
   "'Symbolic mathematics' is to numerical mathematics as algebra is to"
   "arithmetic: it deals with variables and expressions, not just numbers."
   "This chapter develops a program that simplifies algebraic expressions."
@@ -647,7 +657,7 @@
    => (-4/3 * (((X ^ 3) + 2) ^ -2)) )
   )
 
-(defexamples 9 "Efficiency Issues"
+(paip.examples:defexamples 9 "Efficiency Issues"
   "One of the reasons Lisp has enjoyed a long history is because it is an"
   "ideal language for what is called rapid-prototyping or rapid development."
   "Most real AI programs deal with large amounts of data.  Thus, efficiency"
@@ -667,7 +677,7 @@
   ((untrace fib))
 )
 
-(defexamples 10 "Low-Level Efficiency Issues"
+(paip.examples:defexamples 10 "Low-Level Efficiency Issues"
   "The efficiency techniques of the previous chapter all involved fairly"
   "significant changes to an algorithm.  But what happens when you are already"
   "using the best imaginable algorithms, and performance is still a problem?"
@@ -682,7 +692,7 @@
   ((disassemble 'g) @ 319)
 )
 
-(defexamples 11 "Logic Programming"
+(paip.examples:defexamples 11 "Logic Programming"
   "The idea behind logic programming is that the programmer should state the"
   "relationships that describe a problem and its solution."
   "In this chapter we develop an interpreter for the Prolog language."
@@ -789,7 +799,7 @@
   )
 
 
-(defexamples 12 "Compiling Logic Programs"
+(paip.examples:defexamples 12 "Compiling Logic Programs"
   "This chapter presents a compiler that translates from Prolog to Lisp."
   "Unfortunatley, there's not much to see in terms of examples."
   "But we load the files for you, in case you want to play with them."
@@ -798,7 +808,7 @@
   ((prolog-compile 'member))
   )
 
-(defexamples 13 "Object Oriented Programming"
+(paip.examples:defexamples 13 "Object Oriented Programming"
   "It is only natural that a wide range of programming styles have been"
   "introduced to attack the wide range of problems in this book."
   "One style not yet covered is 'object-oriented programming'."
@@ -1009,7 +1019,7 @@
   ((conc '#(a b c) '#(d e f)) => #(A B C D E F))
   )
 
-(defexamples 14 "Knowledge Representation and Reasoning"
+(paip.examples:defexamples 14 "Knowledge Representation and Reasoning"
   "In this chapter we explore means of indexing facts so that they can be"
   "retrieved and reasoned with efficiently."
   "Section 14.1 to 14.7 discuss problems with logical reasoning systems"
@@ -1073,7 +1083,7 @@
   ((test-bears) @ 492)
   )
 
-(defexamples 15 "Symbolic Mathematics with Canonical Forms"
+(paip.examples:defexamples 15 "Symbolic Mathematics with Canonical Forms"
   "This chapter uses a canonical representation for polynomials"
   "to achieve a more efficient program than the rules-based one in Chapter 8."
   (:section "15.1 A Canonical Form for Polynomials")
@@ -1100,7 +1110,7 @@
    (((2 * z) * (x ^ 3)) + (3 * (x ^ 2)) + 1)))
 
 
-(defexamples 16 "Expert Systems"
+(paip.examples:defexamples 16 "Expert Systems"
   "In this chapter we develop an expert system shell, and give it a few rules"
   "about infectious disease, thus duplicating some of the Mycin system."
   ((requires "mycin-r"))
@@ -1108,7 +1118,7 @@
   "You can try it yourself by evaluating (mycin)"
   )
 
-(defexamples 17 "Line Diagram Labelling by Constraint Satisfaction"
+(paip.examples:defexamples 17 "Line Diagram Labelling by Constraint Satisfaction"
   "In this chapter we look at the line-diagram labeling problem: Given a list"
   "of lines and the vertexes at which they intersect, how can we determine"
   "what the lines represent?"
@@ -1187,7 +1197,7 @@
      (m L k i)      (z Y t u v)) @ 584)
   ((print-labelings (ground (diagram 'tower) 'l 'k)) @ 584))
 
-(defexamples 18 "Search and the Game of Othello"
+(paip.examples:defexamples 18 "Search and the Game of Othello"
   "In this chapter we will develop a simplified Othello-playing program."
   "It will not be a champion, but is much better than beginning players."
   (:section "18.2 Representation Choices")
@@ -1243,7 +1253,7 @@
    '(count-difference weighted modified-weighted random)))
   )
 
-(defexamples 19 "Introduction to Natural Language"
+(paip.examples:defexamples 19 "Introduction to Natural Language"
   "This chapter is a brief introduction to natural language processing."
   (:section "19.1 Parsing with a Phrase-Structure Grammar")
   "We start with the grammar defined on page 39 for the GENERATE program."
@@ -1358,7 +1368,7 @@
   )
 
 
-(defexamples 20 "Unification Grammars"
+(paip.examples:defexamples 20 "Unification Grammars"
   "Prolog was invented as a formalism to describe the grammar of French."
   "It is still useful to view a grammar as a set of logic programming clauses."
   "This chapter describes how that can be done."
@@ -1531,7 +1541,7 @@
   ((do-s '(every man loves a woman)) :input "." @ 701)
   )
 
-(defexamples 21 "A Grammar of English"
+(paip.examples:defexamples 21 "A Grammar of English"
   ((if (boundp 'clear-db) (clear-db)) @ 715)
   ((requires "grammar" "lexicon"))
   ((prolog-compile-symbols))
@@ -1545,7 +1555,7 @@
   ((try s It should not surprise you that Kim does not like Lee) :input ";;;.")
   )
 
-(defexamples 22 "Scheme: An Uncommon Lisp"
+(paip.examples:defexamples 22 "Scheme: An Uncommon Lisp"
   "This chapter presents the Scheme dialect of Lisp and an interpreter for it."
   "Understanding the interpreter can give you a better appreciation of Lisp."
   (:section "22.1 A Scheme Interpreter")
@@ -1606,7 +1616,7 @@
   "It effectively throws 300 out to the catch point established by call/cc."
   )
 
-(defexamples 23 "Compiling Lisp"
+(paip.examples:defexamples 23 "Compiling Lisp"
   "Compilers are simple to write and useful to know about."
   "In this chapter we develop a simple compiler for Scheme."
   ""

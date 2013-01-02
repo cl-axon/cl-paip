@@ -4,6 +4,8 @@
 
 ;;;; File intro.lisp: Miscellaneous functions from the introduction.
 
+(in-package #:paip.ch01)
+
 (defun last-name (name)
   "Select the last name from a name represented as a list."
   (first (last name)))
@@ -12,6 +14,7 @@
   "Select the first name from a name represented as a list."
   (first name))
 
+(defvar names nil)
 (setf names '((John Q Public) (Malcolm X)
               (Admiral Grace Murray Hopper) (Spot)
               (Aristotle) (A A Milne) (Z Z Top)
@@ -43,7 +46,7 @@
 
 (defun numbers-and-negations (input)
   "Given a list, return only the numbers and their negations."
-  (mappend #'number-and-negation input))
+  (paip.common:mappend #'number-and-negation input))
 
 ;;; ==============================
 
