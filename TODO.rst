@@ -8,6 +8,8 @@ Convert to ASDF/Quicklisp package:
 
 * update README instructions to account for these changes
 
+* remove the old "require" function
+
 
 The following chapter's source code have issues in SBCL:
 
