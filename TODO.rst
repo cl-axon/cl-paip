@@ -1,7 +1,5 @@
 The following chapter's source code have issues in SBCL:
 
- * Chapter 3 - fixnum/integer type problem
-
  * Chapter 7 - SB-KERNEL:*MAXIMUM-ERROR-DEPTH* exceeded.
 
  * Chapter 8 - SB-KERNEL:*MAXIMUM-ERROR-DEPTH* exceeded.
