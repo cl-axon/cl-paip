@@ -87,13 +87,14 @@
 
 (defun load-paip-file (file)
   "Load the binary file if it exists and is newer, else load the source."
-  (let* ((src (paip-pathname file :lisp))
-     (src-date (file-write-date src))
-     (bin (paip-pathname file :binary))
-     (bin-date (file-write-date bin)))
-    (load (if (and (probe-file bin) src-date bin-date (>= bin-date src-date))
-          bin
-        src))))
+  ;(let* ((src (paip-pathname file :lisp))
+  ;   (src-date (file-write-date src))
+  ;   (bin (paip-pathname file :binary))
+  ;   (bin-date (file-write-date bin)))
+  ;  (load (if (and (probe-file bin) src-date bin-date (>= bin-date src-date))
+  ;        bin
+  ;      src))))
+  (load file))
 
 (defun requires (&rest files)
   "The arguments are files that are required to run an application."
@@ -297,7 +298,7 @@
 ;;;; PATTERN MATCHING FACILITY
 
 (defconstant fail nil)
-(defconstant no-bindings '((t . t)))
+(defvar no-bindings '((t . t)))
 
 (defun get-binding (var bindings)
   "Find a (variable . value) pair in a binding list."
