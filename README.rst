@@ -9,23 +9,31 @@ repository.
 Installation Instructions
 -------------------------
 
-#.  ``git clone`` the source code from the github repository.
+#. ``git clone`` the source code from the github repository.
 
-#.  You must have a lisp compiler/interpreter.
+#. You must have a lisp compiler/interpreter.
 
-#.  To test all the code, start lisp in the project directory and do the
-    following at the interactive prompt:
+#. To test all the code, start lisp in the project directory and do the
+   following at the interactive prompt:
 
 .. code:: lisp
 
-    (load "auxfns.lisp")
-    (in-package :paip.auxfns)
-    (requires "examples")
-    (do-examples :all)
+   (load "auxfns.lisp")
+   (in-package :paip.auxfns)
+   (requires "examples")
+   (do-examples :all)
 
 This should print out a long list of inputs and outputs, and the last
 output should be the total number of errors. If all goes well, this should be
 "0".
+
+If you would like to run the examples for just a given chapter, you can do that
+as well. For instance, once you have done ``(requires "examples")``, this will
+execute the examples for Chapter 3:
+
+.. code:: lisp
+
+   (do-chapter 3 *standard-output*)
 
 Use
 ---
