@@ -151,6 +151,7 @@
   ((untrace length9))
   ((length9 '(1 b c)) => 3)
   (:section "3.7 Functions on Trees")
+  ((defvar tree nil))
   ((setf tree '((a b) ((c)) (d e))) @ 76)
   ((tree-equal tree (copy-tree tree)) => t)
   ((same-shape-tree tree '((1 2) ((3)) (4 5))) => t)
@@ -164,6 +165,8 @@
    => (bonjour mon ami - comment va tu today?) @ 77)
   (:section "3.10 Destructive Functions")
   "Consider the following:"
+  ((defvar x nil))
+  ((defvar y nil))
   ((setq x '(a b c)) @ 80)
   ((setq y '(1 2 3)))
   ((nconc x y) => (a b c 1 2 3))
@@ -176,7 +179,7 @@
   ""
   (:section "3.11 Overview of Data Types")
   "The function TYPE-OF returns the type of its argument."
-  ((type-of 123) => fixnum @ 82)
+  ((type-of 123) => (integer 0 4611686018427387903) @ 82)
   ((typep 123 'fixnum) => t)
   ((typep 123 'integer) => t)
   ((typep 123.0 'integer) => nil)
@@ -211,6 +214,8 @@
   ((mapcar (adder 10) '(1 3 10)) => (11 13 20) @ 92)
   "In the following, two calls to BANK-ACCOUNT create two different closures,"
   "each with a separate value for the lexical variable BALANCE."
+  ((defvar my-account nil))
+  ((defvar your-account nil))
   ((setf my-account (bank-account 500.00)) @ 92)
   ((setf your-account (bank-account 250.00)) @ 93)
   ((funcall my-account 'withdraw 75.00) => 425.0)
