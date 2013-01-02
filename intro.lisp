@@ -35,15 +35,15 @@
 
 ;;; ==============================
 
-(defun numbers-and-negations (input)
-  "Given a list, return only the numbers and their negations."
-  (mappend #'number-and-negation input))
-
 (defun number-and-negation (x)
   "If x is a number, return a list of x and -x."
   (if (numberp x)
       (list x (- x))
       nil))
+
+(defun numbers-and-negations (input)
+  "Given a list, return only the numbers and their negations."
+  (mappend #'number-and-negation input))
 
 ;;; ==============================
 
